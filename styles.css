@@ -405,6 +405,11 @@ img {
   color: var(--muted);
   margin: 0 0 1rem;
 }
+.btn-primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;}
 
 /* Features Grid */
 .features-grid {
