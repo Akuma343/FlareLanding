@@ -158,7 +158,11 @@ img {
   gap: 0.35rem;
   align-items: center;
 }
-
+@media (max-width: 860px) {
+  .brand-tagline {
+    display: none;
+  }
+}
 .nav-links a {
   padding: 0.5rem 0.9rem;
   color: var(--muted);
@@ -685,17 +689,15 @@ footer {
 }
 
 .footer-bottom {
-  margin-top: 2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
   justify-content: space-between;
-  color: var(--muted);
-  font-size: 0.95rem;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  flex-wrap: wrap; /* allows wrapping on small screens */
+  gap: 0.5rem;
 }
+
 
 .status-dot {
   display: inline-flex;
@@ -715,6 +717,30 @@ footer {
   background: #22c55e;
   box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.2);
 }
+
+@media (max-width: 600px) {
+  .footer-bottom span {
+    font-size: 0.85rem; /* reduced but still readable */
+  }
+
+  .status-dot {
+    padding: 0.3rem 0.6rem;  /* scale down the badge */
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra adjustments for very small screens (360px) */
+@media (max-width: 360px) {
+  .footer-bottom span {
+    font-size: 0.75rem;
+  }
+
+  .status-dot {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.75rem;
+  }
+}
+
 
 /* Responsive */
 .site-header {
@@ -950,5 +976,3 @@ footer {
     transform: rotate(360deg);
   }
 }
-
-
