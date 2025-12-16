@@ -1052,10 +1052,7 @@ section:nth-of-type(5).visible {
     margin-bottom: 1rem;
   }
 }
-* ==============================
-   HARD MOBILE OVERFLOW FIX
-   (prevents sideways swipe)
-============================== */
+
 
 /* Lock page horizontally */
 html,
@@ -1224,3 +1221,168 @@ canvas,
   }
 }
 
+/* ==============================
+   SECTION ANIMATION FALLBACK
+   (Fix for sections beyond #5)
+============================== */
+section.visible {
+  opacity: 1;
+  transform: none;
+}
+.btn {
+  display: inline-flex;          /* enables flexbox */
+  align-items: center;           /* vertical center */
+  justify-content: center;       /* horizontal center */
+  text-align: center;
+  white-space: nowrap;           /* prevents text wrapping */
+}
+.btn-ghost {
+  padding: 0.75rem 1.5rem;
+}
+/* CONTACT OVERLAY */
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+.contact-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contact-card {
+  background: var(--background);
+  border-radius: 16px;
+  padding: 2rem;
+  width: min(90%, 380px);
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  position: relative;
+  animation: scaleIn 0.35s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.contact-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.contact-card p {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.close-overlay {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.contact-icons a {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  font-size: 1.4rem;
+  color: var(--foreground);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.contact-icons a:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: rgba(255,59,59,0.15);
+}
+/* GLOW ANIMATED ICONS */
+.contact-icons a {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow ring */
+.contact-icons a::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 59, 59, 0.45),
+    transparent 65%
+  );
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 0.3s ease;
+}
+
+/* Pulse animation */
+.contact-icons a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.6);
+  animation: pulseGlow 2.2s infinite;
+  opacity: 0;
+}
+
+/* Icon itself */
+.contact-icons i {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover state */
+.contact-icons a:hover::before {
+  opacity: 1;
+}
+
+.contact-icons a:hover {
+  color: #ff3b3b;
+}
+
+
+/* Pulse keyframes */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7);
+    opacity: 0.9;
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(255, 59, 59, 0);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
