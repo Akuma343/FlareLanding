@@ -90,3 +90,29 @@ entry.target.classList.remove('visible');
 
 
 sections.forEach(sec => observer.observe(sec));
+
+// CONTACT OVERLAY LOGIC
+const contactButtons = document.querySelectorAll('a[href="#contact"]');
+const contactOverlay = document.getElementById('contactOverlay');
+const closeOverlay = document.querySelector('.close-overlay');
+
+contactButtons.forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    contactOverlay.classList.add('active');
+    contactOverlay.setAttribute('aria-hidden', 'false');
+  });
+});
+
+closeOverlay.addEventListener('click', () => {
+  contactOverlay.classList.remove('active');
+  contactOverlay.setAttribute('aria-hidden', 'true');
+});
+
+// Close when clicking outside the card
+contactOverlay.addEventListener('click', e => {
+  if (e.target === contactOverlay) {
+    contactOverlay.classList.remove('active');
+  }
+});
+
